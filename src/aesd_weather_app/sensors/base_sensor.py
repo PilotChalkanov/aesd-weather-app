@@ -26,9 +26,9 @@ class BaseSensor(ABC):
 
     def notify_observers(self) -> None:
         """Notifies all registered observers with the latest sensor data."""
-        value = self.read()
+        
         for o in self.observers:
-            o.update(self.name, value)
+            o.update(self.name, str(self._state))
 
     def sensor_update(self) -> None:
         """Reads new data and notifies observers."""
