@@ -36,6 +36,9 @@ testpaths = [
 [tool.flake8]
 max-line-length = 88
 
+[tool.mypy]
+follow_untyped_imports = "false"
+
 [build-system]
 requires = ["uv_build>=0.10.4,<0.11.0"]
 build-backend = "uv_build"
