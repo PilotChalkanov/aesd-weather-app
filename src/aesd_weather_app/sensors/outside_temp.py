@@ -16,7 +16,9 @@ class OutsideTempSensor(BaseSensor):
         self.logger = logger
 
     def read(self) -> str:
-        """Gets outside temperature data from Open-Meteo API and returns it as a string."""
+        """
+        Gets outside temperature data from Open-Meteo API and returns it as a string.
+        """
 
         params = {
             "latitude": 43.2167,

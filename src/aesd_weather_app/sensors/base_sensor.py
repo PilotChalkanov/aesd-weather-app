@@ -13,7 +13,8 @@ class BaseSensor(ABC):
     @abstractmethod
     def read(self) -> str:
         """
-        Abstract method to read data from the sensor. Subclasses must implement this method to return the sensor data as a string.
+        Abstract method to read data from the sensor. Subclasses must implement
+        this method to return the sensor data as a string.
         """
         raise NotImplementedError("Subclasses must implement the read method.")
 
