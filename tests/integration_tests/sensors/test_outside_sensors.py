@@ -1,6 +1,6 @@
 import pytest
 
-from aesd_weather_app.sensors.outside_temp import OutsideTempSensor
+from aesd_weather_app.sensors.outside_temp import OutsideTempSensor  # type: ignore
 from aesd_weather_app.sensors.wind_sensor import WindSensor  # type: ignore
 
 
