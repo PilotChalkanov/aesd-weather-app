@@ -20,6 +20,3 @@ repos:
     hooks:
     -   id: flake8
         args: [--max-line-length=88]
-
-
-
