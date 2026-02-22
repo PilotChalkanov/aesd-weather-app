@@ -31,4 +31,5 @@ def test_outside_wind_sensor_read(outside_wind_sensor):
     assert isinstance(wind, str), "The read method should return a string."
     assert (
         float(wind) >= 0
-    ), "The read method should return a non-negative numeric string representing the wind speed."
+    ), "The read method should return a non-negative numeric string "
+    "representing the wind speed."
