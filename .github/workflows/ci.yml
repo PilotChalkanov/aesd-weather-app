@@ -41,9 +41,7 @@ jobs:
         run: uv sync --no-dev --group=qa
 
       - name: Run Bandit security scan
-        uses: mdegis/bandit-action@v1.0
+        uses: PyCQA/bandit-action@v1
         with:
-          path: "src/aesd_weather_app"
-          level: high
-          confidence: high
-          exit_zero: true
+          targets: "src/aesd_weather_app"
+          confidence: medium
