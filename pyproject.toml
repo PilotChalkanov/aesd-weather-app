@@ -15,13 +15,37 @@ dev = [
 "mypy",
 ]
 qa = [
+"black",
+"flake8",
+"mypy",
 "bandit",
+"pre-commit",
 ]
 test = [
 "pytest",
 "pytest-cov",
 ]
-[build-system]
-requires = ["uv_build>=0.10.4,<0.11.0"]
-build-backend = "uv_build"
 
+[tool.pytest]
+
+addopts = ["-vvv", "--cov=src/", "--cov-report=html", ]
+testpaths = [
+    "tests",
+]
+
+[tool.flake8]
+max-line-length = 88
+
+[tool.mypy]
+follow_untyped_imports = false
+ignore_missing_imports = true
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
