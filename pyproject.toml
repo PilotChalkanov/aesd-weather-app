@@ -1,0 +1,27 @@
+[project]
+name = "aesd-weather-app"
+version = "0.1.0"
+description = "Simple app to read data from a I2C sensor and weather APIs and display to a LCD screen"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+"requests >= 2.0.0",
+]
+
+[dependency-groups]
+dev = [
+"black",
+"flake8",
+"mypy",
+]
+qa = [
+"bandit",
+]
+test = [
+"pytest",
+"pytest-cov",
+]
+[build-system]
+requires = ["uv_build>=0.10.4,<0.11.0"]
+build-backend = "uv_build"
+
