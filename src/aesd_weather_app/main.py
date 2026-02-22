@@ -8,14 +8,12 @@ from aesd_weather_app.sensors.wind_sensor import WindSensor
 
 
 def main():
-    logger = logging.Logger("WeatherAppLogger")
-    logger.setLevel("INFO")
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    logging.basicConfig(
+        filename="/var/log/weather_app.log",
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s: %(message)s",
     )
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    logger = logging.getLogger("WeatherAppLogger")
 
     temp_sensor = TempSensor("Temp", logger=logger)
     humidity_sensor = HumiditySensor("Humidity", logger=logger)
