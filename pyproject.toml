@@ -15,13 +15,27 @@ dev = [
 "mypy",
 ]
 qa = [
+"black",
+"flake8",
+"mypy",
 "bandit",
 ]
 test = [
 "pytest",
 "pytest-cov",
 ]
+
+[tool.pytest]
+
+addopts = ["-vvv", "--cov=src/", "--cov-report=html", ]
+testpaths = [
+    "tests",
+]
+
 [build-system]
 requires = ["uv_build>=0.10.4,<0.11.0"]
 build-backend = "uv_build"
+module-root = "src"
+module-name = "aesd_weather_app"
+
 
