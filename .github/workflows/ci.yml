@@ -1,0 +1,96 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  push:
+    branches:
+      - main
+      - develop
+jobs:
+  pre-commit:
+      name: Pre-commit
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - uses: pre-commit/action@v3.0.1
+  gitleaks:
+    name: Gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  bandit:
+    name: Vulnerability Scan with Bandit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Install dependencies
+        run: uv sync --no-dev --group=qa
+
+      - name: Run Bandit security scan
+        uses: PyCQA/bandit-action@v1
+        with:
+          targets: "src/aesd_weather_app"
+          confidence: medium
+  mypy:
+    name: Run mypy type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Install dependencies
+        run: uv sync --no-dev --group=qa --group=test
+      - name: Run mypy
+        run: uv run mypy src/aesd_weather_app tests
+  unit_tests:
+    name: Run Unit tests
+    runs-on: ubuntu-latest
+    needs: [pre-commit, gitleaks, bandit, mypy]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Install dependencies
+        run: uv sync --no-dev --group=qa --group=test
+      - name: Run tests with pytest
+        run: uv run pytest --cov=src/aesd_weather_app --cov-report=xml --cov-report=html tests/unit_tests
+
+  integration_tests:
+    name: Run Integration tests
+    runs-on: ubuntu-latest
+    needs: [pre-commit, gitleaks, bandit, mypy]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Install dependencies
+        run: uv sync --no-dev --group=qa --group=test
+      - name: Run tests with pytest
+        run: uv run pytest --cov=src/aesd_weather_app --cov-report=xml --cov-report=html tests/integration_tests
