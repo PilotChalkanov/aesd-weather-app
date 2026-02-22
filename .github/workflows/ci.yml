@@ -75,4 +75,4 @@ jobs:
       - name: Install dependencies
         run: uv sync --no-dev --group=qa --group=test
       - name: Run tests with pytest
-        run: uv run pytest --cov=src/aesd_weather_app --cov-report=xml --cov-report=html tests/integration_tests
+        run: uv run pytest --cov=src/aesd_weather_app --cov-report=xml --cov-report=html tests/
