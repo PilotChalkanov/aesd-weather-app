@@ -21,12 +21,12 @@ class BaseSensor(ABC):
 
     def register_observer(self, observer: Observer) -> None:
         """Registers an observer to receive updates from this sensor."""
-        
+
         self.observers.append(observer)
 
     def notify_observers(self) -> None:
         """Notifies all registered observers with the latest sensor data."""
-        
+
         for o in self.observers:
             o.update(self.name, str(self._state))
 

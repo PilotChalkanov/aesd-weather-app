@@ -16,19 +16,21 @@ class LCDisplay(Observer):
 
     def update(self, sensor_name: str, data: str):
         """Update the LCD display with new sensor data."""
-        if sensor_name in self.sensors:       
+        if sensor_name in self.sensors:
             self.logger.info(f"LCD Display updated with {sensor_name}: {data}")
             self.sensors[sensor_name] = data
         else:
-            self.logger.warning(f"Received update for unregistered sensor: {sensor_name}")
+            self.logger.warning(
+                f"Received update for unregistered sensor: {sensor_name}"
+            )
 
     def refresh_display(self):
         """Refresh the LCD display with current sensor data."""
         try:
-            with open(self.LCD_DEV, 'w') as lcd:
-                for sensor_name, data in self.sensors.items():                    
+            with open(self.LCD_DEV, "w") as lcd:
+                for sensor_name, data in self.sensors.items():
                     lcd.write(f"{sensor_name}: {data}\n")
-                    self.logger.debug(f"Refreshed LCD with {sensor_name}: {data}")                    
+                    self.logger.debug(f"Refreshed LCD with {sensor_name}: {data}")
                 sleep(3)
         except FileNotFoundError as e:
             self.logger.error(f"LCD device not found: {e}")
