@@ -208,6 +208,7 @@ __marimo__/
 
 
 uv.lock
+.python-version
 .vscode/
 .venv/
 .htmlcov/
