@@ -1,6 +1,5 @@
-from unittest.mock import MagicMock, patch, mock_open
+from unittest.mock import patch, mock_open
 import pytest
-from aesd_weather_app.sensors.humidity_sensor import HumiditySensor
 
 
 def test_humidity_sensor_read_success(humidity_sensor):

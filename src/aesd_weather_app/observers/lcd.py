@@ -1,9 +1,7 @@
 from logging import Logger
 from time import sleep
-from typing import Dict, List, Optional
-
+from typing import Dict
 from aesd_weather_app.observers.observer import Observer
-from aesd_weather_app.sensors.base_sensor import BaseSensor
 
 
 class LCDisplay(Observer):
