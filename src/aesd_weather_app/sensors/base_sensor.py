@@ -9,6 +9,7 @@ class BaseSensor(ABC):
     def __init__(self, name):
         self.name = name
         self.observers: List[Observer] = []
+        self._state = 0.0
 
     @abstractmethod
     def read(self) -> str:
@@ -26,3 +27,10 @@ class BaseSensor(ABC):
         """Notifies all registered observers with the latest sensor data."""
         for o in self.observers:
             o.update(self.name, self.read())
+
+    def sensor_update(self) -> None:
+        """Reads new data and notifies observers."""
+        temp = float(self.read())
+        if self._state != temp:
+            self._state = temp
+            self.notify_observers()
