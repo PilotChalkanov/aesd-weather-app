@@ -45,3 +45,18 @@ jobs:
         with:
           targets: "src/aesd_weather_app"
           confidence: medium
+  mypy:
+    name: Run mypy type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Install dependencies
+        run: uv sync --no-dev --group=qa
+      - name: Run mypy
+        run: uv run mypy src/aesd_weather_app tests
