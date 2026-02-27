@@ -1,5 +1,3 @@
-import pytest
-
 from aesd_weather_app.observers.lcd import LCDisplay
 from aesd_weather_app.main import main
 from aesd_weather_app.sensors.outside_temp import OutsideTempSensor
