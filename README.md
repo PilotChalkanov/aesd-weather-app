@@ -1,3 +1,7 @@
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+
 # AESD Weather App
 
 Small Python weather application for a Raspberry Pi 4 embedded weather station that reads local sensor data and public weather API data, then pushes updates to an LCD character device.
@@ -80,32 +84,6 @@ The app logs to:
 
 If writing there fails due to permissions, run with appropriate privileges or adjust logging destination in `main.py`.
 
-## Test
-
-Run all tests:
-
-```bash
-pytest
-```
-
-Run a specific integration test file:
-
-```bash
-pytest tests/integration_tests/main_flow/test_workflow.py -vv
-```
-
-Coverage HTML report is generated under:
-
-- `htmlcov/index.html`
-
-## Quality Checks
-
-```bash
-black .
-flake8
-mypy src
-bandit
-```
 
 ## Notes for Embedded/Yocto
 
