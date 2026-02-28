@@ -1,9 +1,7 @@
 from aesd_weather_app.observers.lcd import LCDisplay
 from aesd_weather_app.main import main
-from aesd_weather_app.sensors.outside_temp import OutsideTempSensor
 from aesd_weather_app.sensors.humidity_sensor import HumiditySensor
 from aesd_weather_app.sensors.temp_sensor import TempSensor
-from aesd_weather_app.sensors.wind_sensor import WindSensor
 
 from unittest.mock import call, mock_open, patch
 
@@ -68,18 +66,12 @@ def test_main_runs_single_cycle_and_refreshes_display():
         patch("builtins.open", mock_open()) as mocked_open,
         patch.object(TempSensor, "read", return_value="21.1") as temp_read,
         patch.object(HumiditySensor, "read", return_value="66.0") as humidity_read,
-        patch.object(WindSensor, "read", return_value="4.2") as wind_read,
-        patch.object(
-            OutsideTempSensor, "read", return_value="17.9"
-        ) as outside_temp_read,
         patch("aesd_weather_app.main.sleep", side_effect=KeyboardInterrupt),
     ):
         main()
 
     temp_read.assert_called_once()
     humidity_read.assert_called_once()
-    wind_read.assert_called_once()
-    outside_temp_read.assert_called_once()
 
     mocked_open.assert_any_call(LCDisplay.LCD_DEV, "w")
     lcd_handle = mocked_open()
@@ -87,8 +79,6 @@ def test_main_runs_single_cycle_and_refreshes_display():
         [
             call("Temp: 21.1\n"),
             call("Humidity: 66.0\n"),
-            call("Wind: 4.2\n"),
-            call("Out Temp: 17.9\n"),
         ],
         any_order=False,
     )
