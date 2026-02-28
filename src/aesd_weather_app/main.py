@@ -24,8 +24,8 @@ def main():
 
     temp_sensor.register_observer(lcd)
     humidity_sensor.register_observer(lcd)
-    wind_sensor.register_observer(lcd)
-    outside_temp_sensor.register_observer(lcd)
+    # wind_sensor.register_observer(lcd)
+    # outside_temp_sensor.register_observer(lcd)
     sensors = [temp_sensor, humidity_sensor, wind_sensor, outside_temp_sensor]
 
     try:
